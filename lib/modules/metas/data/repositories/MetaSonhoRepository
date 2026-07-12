@@ -1,0 +1,54 @@
+import 'package:sqflite/sqflite.dart';
+import '../../../../core/database/database_helper.dart';
+import '../models/meta_sonho_model.dart';
+
+class MetaSonhoRepository {
+  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
+
+  // 1. Criar uma nova Meta/Cofrinho
+  Future<int> criarMeta(MetaSonhoModel meta) async {
+    final db = await _dbHelper.database;
+    return await db.insert('meta_sonho', meta.toMap());
+  }
+
+  // 2. Listar todas as metas cadastradas
+  Future<List<MetaSonhoModel>> obterTodasAsMetas() async {
+    final db = await _dbHelper.database;
+    final List<Map<String, dynamic>> maps = await db.query('meta_sonho');
+    return List.generate(maps.length, (i) => MetaSonhoModel.fromMap(maps[i]));
+  }
+
+  // 3. Sincronizar o saldo do cofrinho com base nas transações existentes
+  // Essa função roda em background para garantir que o valor_poupado esteja sempre correto
+  Future<void> atualizarSaldoDaMeta(int metaId) async {
+    final db = await _dbHelper.database;
+
+    // Calcula a soma de entradas e saídas vinculadas a essa meta específica
+    // Nota: Como mover dinheiro para a meta gera uma transação do tipo 'SAIDA' no saldo geral,
+    // aqui dentro do cofrinho ela soma como valor positivo.
+    final resultado = await db.rawQuery('''
+      SELECT SUM(CASE WHEN tipo = 'SAIDA' THEN valor ELSE -valor END) as saldo_interno
+      FROM transacao
+      WHERE meta_id = ?
+    ''', [metaId]);
+
+    double novoSaldo = 0.0;
+    if (resultado.first['saldo_interno'] != null) {
+      novoSaldo = resultado.first['saldo_interno'] as double;
+    }
+
+    // Atualiza a tabela de metas com o saldo real calculado
+    await db.update(
+      'meta_sonho',
+      {'valor_poupado': novoSaldo},
+      where: 'id = ?',
+      whereArgs: [metaId],
+    );
+  }
+
+  // 4. Excluir uma meta (lembrando que as transações ligadas a ela viram meta_id = NULL automaticamente)
+  Future<int> excluirMeta(int id) async {
+    final db = await _dbHelper.database;
+    return await db.delete('meta_sonho', where: 'id = ?', whereArgs: [id]);
+  }
+}
