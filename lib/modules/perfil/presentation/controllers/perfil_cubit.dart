@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/CalcularValorHoraUsecase.dart';
-import '../../data/repositories/UsuarioConfigRepository.dart';
+import '../../domain/usecases/calcular_valor_hora_usecase.dart';
+import '../../data/repositories/usuario_config_repository.dart';
 import 'perfil_state.dart';
 
 class PerfilCubit extends Cubit<PerfilState> {

@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/database/DatabaseHelper.dart';
-import '../models/UsuarioConfigModel.dart';
+import '../models/usuario_config_model.dart';
 
 class UsuarioConfigRepository {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
@@ -9,7 +9,7 @@ class UsuarioConfigRepository {
   Future<void> salvarConfiguracao(UsuarioConfigModel config) async {
     final db = await _dbHelper.database;
 
-    // 'conflictAlgorithm: ConflictAlgorithm.replace' funciona como um UPSERT:  
+    // 'conflictAlgorithm: ConflictAlgorithm.replace' funciona como um UPSERT:
     // Se o ID 1 já existir, ele atualiza (UPDATE). Se não existir, insere (INSERT).
     await db.insert(
       'usuario_config',

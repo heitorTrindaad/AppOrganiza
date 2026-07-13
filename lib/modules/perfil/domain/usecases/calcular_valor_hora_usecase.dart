@@ -1,5 +1,5 @@
-import '../../data/models/UsuarioConfigModel.dart';
-import '../../data/repositories/UsuarioConfigRepository.dart';
+import '../../data/models/usuario_config_model.dart';
+import '../../data/repositories/usuario_config_repository.dart';
 
 class CalcularValorHoraUseCase {
   final UsuarioConfigRepository _repository;
@@ -9,7 +9,9 @@ class CalcularValorHoraUseCase {
   // Executa a regra de negócio: atualiza ou cria o perfil calculando o valor da hora
   Future<void> executar({required double salario, required int horas}) async {
     if (salario < 0 || horas <= 0) {
-      throw Exception('Salário deve ser maior que zero e  horas devem ser maiores que zero.');
+      throw Exception(
+        'Salário deve ser maior que zero e  horas devem ser maiores que zero.',
+      );
     }
 
     // A lógica de divisão já está encapsulada na factory do Model
