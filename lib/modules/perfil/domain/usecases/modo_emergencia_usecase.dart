@@ -1,4 +1,6 @@
-import '../../data/repositories/TransacaoRepositories.dart';
+import 'package:app_organiza/modules/transacoes/data/models/transacal_model.dart';
+
+import '../../../transacoes/data/repositories/transacao_repository.dart';
 
 class ModoEmergenciaResultado {
   final double saldoAtual;

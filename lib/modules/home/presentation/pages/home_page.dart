@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controllers/HomeCubit.dart';
-import '../controllers/HomeState.dart';
-import '../../transacoes/presentation/pages/NovaTransacaoPage.dart';
+import '../controllers/home_cubit.dart';
+import '../controllers/home_state.dart';
+import '../../../transacoes/presentation/pages/nova_transacao_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

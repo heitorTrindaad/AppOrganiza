@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/database/DatabaseHelper.dart';
-import '../models/TransacaoModels.dart';
+import '../models/transacal_model.dart';
 
 class TransacaoRepository {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
@@ -26,7 +26,7 @@ class TransacaoRepository {
   // Faz a soma matemática de ENTRADAs e subtrai as SAÍDAs do banco
   Future<double> obterSaldoGeral() async {
     final db = await _dbHelper.database;
-    
+
     final resultado = await db.rawQuery('''
       SELECT 
         SUM(CASE WHEN tipo = 'ENTRADA' THEN valor ELSE -valor END) as saldo_geral
@@ -44,7 +44,7 @@ class TransacaoRepository {
   // Retorna os gastos agrupados para a camada de domínio decidir o que cortar
   Future<List<Map<String, dynamic>>> obterGastosPorCategoriaNoMes() async {
     final db = await _dbHelper.database;
-    
+
     return await db.rawQuery('''
       SELECT categoria, SUM(valor) as total
       FROM transacao

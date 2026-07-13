@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/database/DatabaseHelper.dart';
-import '../models/MetaSonhoModel.dart';
+import '../models/meta_sonho_model.dart';
 
 class MetaSonhoRepository {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
@@ -26,11 +26,14 @@ class MetaSonhoRepository {
     // Calcula a soma de entradas e saídas vinculadas a essa meta específica
     // Nota: Como mover dinheiro para a meta gera uma transação do tipo 'SAIDA' no saldo geral,
     // aqui dentro do cofrinho ela soma como valor positivo.
-    final resultado = await db.rawQuery('''
+    final resultado = await db.rawQuery(
+      '''
       SELECT SUM(CASE WHEN tipo = 'SAIDA' THEN valor ELSE -valor END) as saldo_interno
       FROM transacao
       WHERE meta_id = ?
-    ''', [metaId]);
+    ''',
+      [metaId],
+    );
 
     double novoSaldo = 0.0;
     if (resultado.first['saldo_interno'] != null) {

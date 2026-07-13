@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controllers/MetasCubit.dart';
-import '../controllers/metasState.dart';
-import '../../data/models/MetaSonhoModel.dart';
+import '../controllers/metas_cubit.dart';
+import '../controllers/metas_state.dart';
+import '../../data/models/meta_sonho_model.dart';
 
 class MetasPage extends StatefulWidget {
   const MetasPage({super.key});

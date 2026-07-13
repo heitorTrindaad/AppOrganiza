@@ -1,4 +1,4 @@
-import '../../data/models/MetaSonhoModel.dart';
+import '../../data/models/meta_sonho_model.dart';
 
 abstract class MetasState {}
 

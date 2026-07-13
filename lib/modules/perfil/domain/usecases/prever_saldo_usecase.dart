@@ -1,10 +1,15 @@
-import '../../data/repositories/TransacaoRepositories.dart';
+import 'package:app_organiza/modules/transacoes/data/models/transacal_model.dart';
+
+import '../../../transacoes/data/repositories/transacao_repository.dart';
 
 class PrevisaoResultado {
   final double saldoEmTresMeses;
   final double saldoEmUmAno;
 
-  PrevisaoResultado({required this.saldoEmTresMeses, required this.saldoEmUmAno});
+  PrevisaoResultado({
+    required this.saldoEmTresMeses,
+    required this.saldoEmUmAno,
+  });
 }
 
 class PreverSaldoFuturoUseCase {

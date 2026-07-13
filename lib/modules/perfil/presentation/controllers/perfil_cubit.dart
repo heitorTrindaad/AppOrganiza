@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/usecases/CalcularValorHoraUsecase.dart';
 import '../../data/repositories/UsuarioConfigRepository.dart';
-import 'PerfilState.dart';
+import 'perfil_state.dart';
 
 class PerfilCubit extends Cubit<PerfilState> {
   final CalcularValorHoraUseCase _calcularUseCase;
