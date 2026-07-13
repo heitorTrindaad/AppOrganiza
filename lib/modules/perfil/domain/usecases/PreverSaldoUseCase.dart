@@ -1,4 +1,4 @@
-import '../../data/repositories/transacao_repository.dart';
+import '../../data/repositories/TransacaoRepositories.dart';
 
 class PrevisaoResultado {
   final double saldoEmTresMeses;

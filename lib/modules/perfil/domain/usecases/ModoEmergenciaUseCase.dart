@@ -1,4 +1,4 @@
-import '../../data/repositories/transacao_repository.dart';
+import '../../data/repositories/TransacaoRepositories.dart';
 
 class ModoEmergenciaResultado {
   final double saldoAtual;
@@ -19,15 +19,18 @@ class ProcessarModoEmergenciaUseCase {
 
   Future<ModoEmergenciaResultado> executar() async {
     final saldo = await _transacaoRepository.obterSaldoGeral();
-    final gastosAgrupados = await _transacaoRepository.obterGastosPorCategoriaNoMes();
+    final gastosAgrupados = await _transacaoRepository
+        .obterGastosPorCategoriaNoMes();
     final todasTransacoes = await _transacaoRepository.obterTodas();
 
     // 1. Calcular a média de gastos diários dos últimos 30 dias (apenas Saídas)
     final hoje = DateTime.now();
     final trintaDiasAtras = hoje.subtract(const Duration(days: 30));
-    
-    final gastosTrintaDias = todasTransacoes.where((t) => 
-      t.tipo == TipoTransacao.SAIDA && t.dataRegistro.isAfter(trintaDiasAtras)
+
+    final gastosTrintaDias = todasTransacoes.where(
+      (t) =>
+          t.tipo == TipoTransacao.SAIDA &&
+          t.dataRegistro.isAfter(trintaDiasAtras),
     );
 
     double totalGastoNoMes = 0;

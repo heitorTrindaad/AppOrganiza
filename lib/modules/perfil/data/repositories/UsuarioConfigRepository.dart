@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-import '../../../../core/database/database_helper.dart';
-import '../models/usuario_config_model.dart';
+import '../../../../core/database/DatabaseHelper.dart';
+import '../models/UsuarioConfigModel.dart';
 
 class UsuarioConfigRepository {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
