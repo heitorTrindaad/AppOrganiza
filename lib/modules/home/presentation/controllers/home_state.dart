@@ -1,22 +1,19 @@
+import 'package:app_organiza/modules/transacoes/data/models/transacao_model.dart';
+
 abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
 class HomeLoading extends HomeState {}
 
-class HomeSucesso extends HomeState {
-  final double saldoAtual;
-  final double valorHora;
-  final int horasDeVida; 
+class HomeLoaded extends HomeState {
+  final double saldo;
+  final List<TransacaoModel> transacoes;
 
-  HomeSucesso({
-    required this.saldoAtual,
-    required this.valorHora,
-    required this.horasDeVida,
-  });
+  HomeLoaded(this.saldo, this.transacoes);
 }
 
-class HomeErro extends HomeState {
-  final String mensagem;
-  HomeErro(this.mensagem);
+class HomeError extends HomeState {
+  final String message;
+  HomeError(this.message);
 }

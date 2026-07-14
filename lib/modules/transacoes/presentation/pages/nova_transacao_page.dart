@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/transacal_model.dart';
+import '../../data/models/transacao_model.dart';
 import '../controllers/transacao_cubit.dart';
 import '../controllers/transacao_state.dart';
 

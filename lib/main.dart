@@ -1,9 +1,10 @@
 import 'package:app_organiza/modules/home/presentation/controllers/home_cubit.dart';
+import 'package:app_organiza/modules/transacoes/data/repositories/transacao_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// Importe o seu Cubit aqui
-import 'modules/home/presentation/controllers/home_cubit.dart';
 import 'modules/home/presentation/pages/home_page.dart';
+// IMPORTANTE: Importe o seu repositório aqui
+import 'modules/transacoes/data/repositories/transacao_repository_impl.dart';
 
 void main() {
   runApp(const MindfulMoneyApp());
@@ -14,14 +15,14 @@ class MindfulMoneyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Envolvemos tudo com o BlocProvider
     return BlocProvider(
-      create: (context) => HomeCubit(), // Criamos o Cubit aqui
+      // AQUI ESTÁ A CORREÇÃO:
+      // Criamos o Cubit e passamos o repositório como argumento
+      create: (context) => HomeCubit(TransacaoRepository()),
       child: MaterialApp(
         title: 'Mindful Money',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: const HomePage(), // Agora a HomePage consegue enxergar o Cubit
+        home: const HomePage(),
       ),
     );
   }

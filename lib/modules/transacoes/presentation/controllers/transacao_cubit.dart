@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/transacal_model.dart';
-import '../../data/repositories/transacao_repository.dart';
+import '../../data/models/transacao_model.dart';
+import '../../data/repositories/transacao_repository_impl.dart';
 import 'transacao_state.dart';
 
 class TransacaoCubit extends Cubit<TransacaoState> {
-  final TransacaoRepository _repository;
+  final TransacaoRepositoryImpl _repository;
 
   TransacaoCubit(this._repository) : super(TransacaoInitial());
 

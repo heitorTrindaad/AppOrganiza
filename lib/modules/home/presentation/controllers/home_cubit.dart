@@ -1,39 +1,20 @@
+import 'package:app_organiza/modules/home/presentation/controllers/home_state.dart';
+import 'package:app_organiza/modules/transacoes/data/repositories/transacao_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'home_state.dart';
-// Importe os repositórios de Perfil e Transação aqui
 
 class HomeCubit extends Cubit<HomeState> {
-  // Simulação das dependências dos repositórios
-  // final PerfilRepository perfilRepo;
-  // final TransacaoRepository transacaoRepo;
+  final TransacaoRepository repository; // Injetado via construtor
 
-  HomeCubit(/* this.perfilRepo, this.transacaoRepo */) : super(HomeInitial());
+  HomeCubit(this.repository) : super(HomeInitial());
 
-  Future<void> carregarDashboard() async {
+  Future<void> carregarDados() async {
     emit(HomeLoading());
-
     try {
-      // Aqui faríamos as chamadas reais aos repositórios do SQLite
-      // Exemplo simulado:
-      await Future.delayed(const Duration(seconds: 1)); // delay fake
-
-      const double saldoSimulado = 3450.00;
-      const double salarioSimulado = 5000.00;
-      const int horasMesSimuladas = 160;
-
-      // Cálculo do Mindful Money
-      final valorHora = salarioSimulado / horasMesSimuladas;
-      final horasDeVida = (saldoSimulado / valorHora).floor();
-
-      emit(
-        HomeSucesso(
-          saldoAtual: saldoSimulado,
-          valorHora: valorHora,
-          horasDeVida: horasDeVida,
-        ),
-      );
+      final saldo = await repository.obterSaldoGeral();
+      final transacoes = await repository.obterTodas();
+      emit(HomeLoaded(saldo, transacoes));
     } catch (e) {
-      emit(HomeErro("Não conseguimos carregar seu resumo no momento."));
+      emit(HomeError("Erro ao carregar dados: ${e.toString()}"));
     }
   }
 }

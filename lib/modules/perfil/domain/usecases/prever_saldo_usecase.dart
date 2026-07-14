@@ -1,6 +1,6 @@
-import 'package:app_organiza/modules/transacoes/data/models/transacal_model.dart';
+import 'package:app_organiza/modules/transacoes/data/models/transacao_model.dart';
 
-import '../../../transacoes/data/repositories/transacao_repository.dart';
+import '../../../transacoes/data/repositories/transacao_repository_impl.dart';
 
 class PrevisaoResultado {
   final double saldoEmTresMeses;
@@ -13,7 +13,7 @@ class PrevisaoResultado {
 }
 
 class PreverSaldoFuturoUseCase {
-  final TransacaoRepository _repository;
+  final TransacaoRepositoryImpl _repository;
 
   PreverSaldoFuturoUseCase(this._repository);
 
