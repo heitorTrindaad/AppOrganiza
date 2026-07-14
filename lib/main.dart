@@ -5,8 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'modules/home/presentation/pages/home_page.dart';
 // IMPORTANTE: Importe o seu repositório aqui
 import 'modules/transacoes/data/repositories/transacao_repository_impl.dart';
+import 'dart:io'; // Importante para detectar se é Windows/Desktop
+import 'package:sqflite_common_ffi/sqflite_common_ffi.dart'; // O pacote FFI
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Esta verificação é essencial para o SQLite funcionar no seu PC
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
   runApp(const MindfulMoneyApp());
 }
 
